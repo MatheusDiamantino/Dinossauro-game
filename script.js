@@ -7,7 +7,7 @@ let dinoWidth = 88;
 let dinoHeight = 94;
 let dinoX = 50;
 let dinoY = boardHeight - dinoHeight;
-let dino/img;
+let dinoImg;
 
 let dino = {
     x: dinoX,
@@ -27,9 +27,9 @@ let cactusHeight = 70;
 let cactusX = 700;
 let cactusY = boardHeight - cactusHeight;
 
-let cactus1/img;
-let cactus2/img;
-let cactus3/img;
+let cactus1Img;
+let cactus2Img;
+let cactus3Img;
 
 let velocityX = -8;
 let velocityY = 0;
@@ -48,20 +48,20 @@ window.onload = function () {
     // context.fillStyle = "green";
     // context.fillRect(dino.x, dino.y, dino.width, dino.height)
 
-    dino/img = new Image();
-    dino/img.src = "//img/dino.png";
-    dino/img.onload = function () {
-        context.drawImage(dino/img, dino.x, dino.y, dino.width, dino.height);
+    dinoImg = new Image();
+    dinoImg.src = "./img/dino.png";
+    dinoImg.onload = function () {
+        context.drawImage(dinoImg, dino.x, dino.y, dino.width, dino.height);
     }
 
-    cactus1/img = new Image();
-    cactus1/img.src = "/img/cactus1.png";
+    cactus1Img = new Image();
+    cactus1Img.src = "./img/cactus1.png";
 
-    cactus2/img = new Image();
-    cactus2/img.src = "/img/cactus2.png";
+    cactus2Img = new Image();
+    cactus2Img.src = "./img/cactus2.png";
 
-    cactus3/img = new Image();
-    cactus3/img.src = "/img/cactus3.png";
+    cactus3Img = new Image();
+    cactus3Img.src = "./img/cactus3.png";
 
     requestAnimationFrame(update);
     setInterval(placeCactus, 1000);
@@ -78,20 +78,20 @@ function update() {
 
     velocityY += gravity;
     dino.y = Math.min(dino.y + velocityY, dinoY);
-    context.drawImage(dino/img, dino.x, dino.y, dino.width, dino.height);
+    context.drawImage(dinoImg, dino.x, dino.y, dino.width, dino.height);
 
     for (let i = 0; i < cactusArray.length; i++) {
         let cactus = cactusArray[i];
 
 
         cactus.x += velocityX;
-        context.drawImage(cactus./img, cactus.x, cactus.y, cactus.width, cactus.height);
+        context.drawImage(cactus.img, cactus.x, cactus.y, cactus.width, cactus.height);
 
         if (detectCollision (dino, cactus)){
             gameOver = true;
-            dino/img.src = "/img/dino-dead.png";
-            dino/img.onload = function(){
-                context.drawImage(dino/img, dino.x, dino.y, dino.width, dino.height);
+            dinoImg.src = "./img/dino-dead.png";
+            dinoImg.onload = function(){
+                context.drawImage(dinoImg, dino.x, dino.y, dino.width, dino.height);
             }
         }
     }
@@ -121,7 +121,7 @@ function placeCactus() {
         return;
     }
     let cactus = {
-        /img: null,
+        img: null,
         x: cactusX,
         y: cactusY,
         width: null,
@@ -131,17 +131,17 @@ function placeCactus() {
     let placeCactusChance = Math.random();
 
     if (placeCactusChance > .90) {
-        cactus./img = cactus3/img;
+        cactus.img = cactus3Img;
         cactus.width = cactus3Width;
         cactusArray.push(cactus);
     }
     else if (placeCactusChance > .70) {
-        cactus./img = cactus2/img;
+        cactus.img = cactus2Img;
         cactus.width = cactus2Width;
         cactusArray.push(cactus);
     }
     else if (placeCactusChance > .50) {
-        cactus./img = cactus1/img;
+        cactus.img = cactus1Img;
         cactus.width = cactus1Width;
         cactusArray.push(cactus);
     }
